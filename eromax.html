@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EroMax - Secure HD Stream & Vault Mirror</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { red: '#ff2a5f', dark: '#0a0a0c', card: '#16161a', border: '#27272a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-brand-dark text-gray-100 min-h-screen flex flex-col justify-between font-sans selection:bg-brand-red selection:text-white">
+
+    <!-- Top Navigation Bar -->
+    <header class="bg-brand-card border-b border-brand-border sticky top-0 z-50 px-4 py-3 flex items-center justify-between shadow-lg">
+        <div class="flex items-center space-x-3">
+            <a href="https://xleakedarea.site" class="text-brand-red font-black text-xl tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-play-circle"></i> ERO<span class="text-white">MAX</span>
+            </a>
+            <span class="bg-brand-red/10 text-brand-red text-xs px-2 py-0.5 rounded font-bold border border-brand-red/20 uppercase tracking-widest">Secure Node v4.2</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <a href="https://xleakedarea.site/join.html" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white text-xs sm:text-sm font-bold px-3 py-1.5 rounded-lg transition shadow-md flex items-center gap-1.5">
+                <i class="fa-brands fa-telegram"><span>Join VIP</span></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow container mx-auto px-2 sm:px-4 py-6 max-w-5xl">
+        
+        <!-- Video Wrapper & Player Simulator -->
+        <div class="relative bg-black rounded-xl overflow-hidden shadow-2xl border border-brand-border aspect-video group">
+            
+            <!-- Video Poster / Thumbnail Background -->
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop" alt="Stream Preview" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition duration-700">
+            
+            <!-- Watermark Overlay -->
+            <div class="absolute top-4 left-4 pointer-events-none bg-black/60 backdrop-blur-md px-3 py-1 rounded border border-white/10 text-xs font-mono text-brand-red tracking-wider flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-brand-red animate-pulse"></span> STREAM.XLEAKEDAREA.SITE
+            </div>
+
+            <!-- Vault Lock / Ad Verification Overlay Gate -->
+            <div id="vaultOverlay" class="absolute inset-0 bg-brand-dark/90 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-20">
+                <div class="w-16 h-16 bg-brand-red/20 text-brand-red rounded-full flex items-center justify-center text-3xl mb-4 border border-brand-red/40 animate-bounce">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2">HD Stream Locked</h2>
+                <p class="text-gray-400 text-sm max-w-md mb-6">Complete safety verification to unlock high-speed playback and direct mirror access without interruptions.</p>
+                
+                <button onclick="triggerMonetizationFlow()" class="bg-brand-red hover:bg-red-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-brand-red/30 transition transform hover:-translate-y-0.5 flex items-center gap-3 text-base sm:text-lg cursor-pointer">
+                    <i class="fa-solid fa-shield-halved"></i> Verify & Play Stream
+                </button>
+                <span class="text-xs text-gray-500 mt-3"><i class="fa-solid fa-circle-info mr-1"></i> Opens secure verification mirror tab</span>
+            </div>
+
+            <!-- Faux Video Controls (Hidden initially) -->
+            <div id="videoControls" class="absolute inset-0 hidden flex-col justify-between p-4 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10">
+                <div class="flex justify-between items-center">
+                    <span class="text-white text-xs font-semibold bg-red-600/80 px-2 py-0.5 rounded">LIVE HD 1080p</span>
+                    <span class="text-gray-300 text-xs font-mono"><i class="fa-regular fa-clock mr-1"></i> 24:15</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-white/20 h-1.5 rounded-full overflow-hidden cursor-pointer">
+                        <div class="bg-brand-red h-full w-1/3"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-white text-sm">
+                        <div class="flex items-center gap-4">
+                            <button onclick="togglePlay()" class="hover:text-brand-red transition"><i id="playIcon" class="fa-solid fa-play text-lg"></i></button>
+                            <button class="hover:text-brand-red transition"><i class="fa-solid fa-volume-high"></i></button>
+                            <span class="text-xs text-gray-400 font-mono">08:12 / 24:15</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <button class="hover:text-brand-red transition"><i class="fa-solid fa-closed-captioning"></i></button>
+                            <button class="hover:text-brand-red transition"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Video Info & Actions Panel -->
+        <div class="mt-6 bg-brand-card border border-brand-border rounded-xl p-4 sm:p-6 shadow-xl">
+            <h1 class="text-xl sm:text-2xl font-bold text-white mb-2">VIP Exclusive Leak Pack #902 - Ultra HD Mirror Stream</h1>
+            <div class="flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm text-gray-400 border-b border-brand-border pb-4 mb-4">
+                <div class="flex items-center gap-4">
+                    <span><i class="fa-solid fa-eye text-brand-red mr-1"></i> 45.2K Views</span>
+                    <span><i class="fa-solid fa-calendar-days text-brand-red mr-1"></i> October 2026</span>
+                    <span><i class="fa-solid fa-server text-brand-red mr-1"></i> Node: SG-01</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="https://xleakedarea.site" class="bg-brand-border hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg transition"><i class="fa-solid fa-arrow-left mr-1"></i> Back to Feed</a>
+                </div>
+            </div>
+
+            <!-- Action Buttons Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <a href="https://your-adsterra-direct-link.com" target="_blank" class="bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white font-bold py-3 px-4 rounded-xl text-center shadow-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-download"></i> Direct Download Mirror (Fast)
+                </a>
+                <a href="https://xleakedarea.site/join.html" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-4 rounded-xl text-center shadow-lg transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-telegram"></i> Join Telegram Channel for Full Album
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-card border-t border-brand-border py-4 text-center text-xs text-gray-500">
+        <p>&copy; 2026 xleakedarea.site & stream.xleakedarea.site. All rights reserved.</p>
+    </footer>
+
+    <!-- Script Logic for Vault Unlocking & Dual Tab Flow -->
+    <script>
+        function triggerMonetizationFlow() {
+            // Open Adsterra direct link in a new background tab
+            window.open('https://your-adsterra-direct-link.com', '_blank');
+            
+            // Hide Vault Overlay and reveal video player controls
+            const overlay = document.getElementById('vaultOverlay');
+            const controls = document.getElementById('videoControls');
+            
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                controls.classList.remove('hidden');
+                controls.classList.add('flex');
+            }, 300);
+        }
+
+        function togglePlay() {
+            const icon = document.getElementById('playIcon');
+            if(icon.classList.contains('fa-play')) {
+                icon.classList.remove('fa-play');
+                icon.classList.add('fa-pause');
+            } else {
+                icon.classList.remove('fa-pause');
+                icon.classList.add('fa-play');
+            }
+        }
+    </script>
+</body>
+</html>
